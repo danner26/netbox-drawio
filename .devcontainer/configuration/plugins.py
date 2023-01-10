@@ -6,10 +6,10 @@
 
 PLUGINS = [
     "netbox_initializers",  # Loads demo data
-    "netbox_acls",
+    "netbox_drawio",
 ]
 
 PLUGINS_CONFIG = { # type: ignore
     "netbox_initializers": {},
-    "netbox_acls": {},
+    "netbox_drawio": {},
 }

@@ -40,13 +40,13 @@ For adding to a NetBox Docker setup see
 While this is still in development and not yet on pypi you can install with pip:
 
 ```bash
-pip install git+https://github.com/ryanmerolle/netbox-acls.git@dev
+pip install git+https://github.com/danner26/netbox-drawio.git@dev
 ```
 
 or by adding to your `local_requirements.txt` or `plugin_requirements.txt` (netbox-docker):
 
 ```bash
-git+https://github.com/ryanmerolle/netbox-acls.git@dev
+git+https://github.com/danner26/netbox-drawio.git@dev
 ```
 
 Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
@@ -54,11 +54,11 @@ Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
 
 ```python
 PLUGINS = [
-    'netbox_acls'
+    'netbox_drawio'
 ]
 
 PLUGINS_CONFIG = {
-    "netbox_acls": {},
+    "netbox_drawio": {},
 }
 ```
 

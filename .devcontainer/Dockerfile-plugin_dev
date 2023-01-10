@@ -24,7 +24,7 @@ ARG USER_GID=$USER_UID
 RUN useradd -l -md /home/vscode -s /usr/bin/zsh -u $USER_UID $USERNAME \
     && usermod -aG sudo $USERNAME \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-    && mkdir /opt/netbox/netbox/netbox-acls \
+    && mkdir /opt/netbox/netbox/netbox-drawio \
     && chown $USERNAME:$USERNAME /opt/netbox /etc/netbox /opt/unit -R
 
 USER $USERNAME
@@ -38,7 +38,7 @@ COPY .zshrc /home/vscode/.zshrc
 
 RUN /opt/netbox/venv/bin/pip install  --no-warn-script-location netbox-initializers==${NETBOX_INITIALIZERS_VARIANT}
 
-WORKDIR /opt/netbox/netbox/netbox-acls
+WORKDIR /opt/netbox/netbox/netbox-drawio
 
 # hadolint ignore=DL3002
 USER root
