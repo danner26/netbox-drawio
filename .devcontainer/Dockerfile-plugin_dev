@@ -1,4 +1,4 @@
-ARG NETBOX_VARIANT=v{{netbox_version}}
+ARG NETBOX_VARIANT=v3.3
 
 FROM netboxcommunity/netbox:${NETBOX_VARIANT}
 
@@ -24,7 +24,7 @@ ARG USER_GID=$USER_UID
 RUN useradd -l -md /home/vscode -s /usr/bin/zsh -u $USER_UID $USERNAME \
     && usermod -aG sudo $USERNAME \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-    && mkdir /opt/netbox/netbox/{{plugin_name}} \
+    && mkdir /opt/netbox/netbox/netbox-acls \
     && chown $USERNAME:$USERNAME /opt/netbox /etc/netbox /opt/unit -R
 
 USER $USERNAME
@@ -38,7 +38,7 @@ COPY .zshrc /home/vscode/.zshrc
 
 RUN /opt/netbox/venv/bin/pip install  --no-warn-script-location netbox-initializers==${NETBOX_INITIALIZERS_VARIANT}
 
-WORKDIR /opt/netbox/netbox/{{plugin_name}}
+WORKDIR /opt/netbox/netbox/netbox-acls
 
 # hadolint ignore=DL3002
 USER root

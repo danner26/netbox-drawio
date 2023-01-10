@@ -6,10 +6,10 @@
 
 PLUGINS = [
     "netbox_initializers",  # Loads demo data
-    "{{plugin_name}}",
+    "netbox_acls",
 ]
 
 PLUGINS_CONFIG = { # type: ignore
     "netbox_initializers": {},
-    "{{plugin_name}}": {},
+    "netbox_acls": {},
 }

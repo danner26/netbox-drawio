@@ -1,47 +1,103 @@
-# NetBox Plugin Template
+# NetBox Access Lists Plugin
 
-This is a template for creating a new plugin for [NetBox](https://github.com/netbox-community/netbox)
-The template is based on the devcontainer setup from [NetBox ACL Plugin](https://github.com/ryanmerolle/netbox-acls) by [ryanmerolle](https://github.com/ryanmerolle)
+A [Netbox](https://github.com/netbox-community/netbox) plugin for Access List management.
 
-It uses devcontainers used by VSCode to create a devcontainer environment in which one can develop and test netbox plugins. To use it VSCode and Docker have to be installed. This Repo has been tested with Docker Desktop using WSL2 on Windows 10. Other Installations may or may not work.
-To use this template, simply clone it, run the setup.py and run the main.py. This will create a new directory with the name of your plugin. 
+## Features
 
+This plugin provides the following models:
+
+- Access Lists
+- Access List to Interface Assignment
+- Access List Rules (abstract model bassis for other rules)
+- Access List Standard Rules
+- Access List Extended Rules
+
+## Origin
+
+Based on the NetBox plugin tutorial by [jeremystretch](https://github.com/jeremystretch):
+
+- [demo repository](https://github.com/netbox-community/netbox-plugin-demo)
+- [tutorial](https://github.com/netbox-community/netbox-plugin-tutorial)
+
+All credit should go to Jeremy.  Thanks Jeremy!
+
+This project just looks to build on top of this framework and model presented.
+
+## Compatibility
+
+This plugin was first developed using 3.2.5, and tested with all of 3.2.
+
+| NetBox Version | Plugin Version |
+|----------------|----------------|
+|       3.2      |      1.0.1     |
+|       3.3      |      1.1.0     |
+
+## Installing
+
+For adding to a NetBox Docker setup see
+[the general instructions for using netbox-docker with plugins](https://github.com/netbox-community/netbox-docker/wiki/Using-Netbox-Plugins).
+
+While this is still in development and not yet on pypi you can install with pip:
 
 ```bash
-git clone
-cd netbox-plugin-template
-python setup.py install
-python main.py
+pip install git+https://github.com/ryanmerolle/netbox-acls.git@dev
 ```
-It will then ask you for relevant variables and create a new directory with the name of your plugin. 
 
-To use the directory in a devcontainer you must push it to a git provider of your choosing an and clone it into a devcontainer. Only then the devcontainer will automatically create a netbox instance in which you can develop, run and test your plugin.
+or by adding to your `local_requirements.txt` or `plugin_requirements.txt` (netbox-docker):
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin <your git provider>
-git push -u origin main
+git+https://github.com/ryanmerolle/netbox-acls.git@dev
 ```
 
-After you have done that you can clone the repository into a devcontainer and start developing.
+Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
+ or if you use netbox-docker, your `/configuration/plugins.py` file :
 
-```bash
-git clone <your git provider>/<your username>/<your plugin name>
-cd <your plugin name>
-code .
-```
-If VSCode has the Remote-Containers extension installed it will automatically ask if it should create a devcontainer for you. If not you can install it by running the following command in the terminal.
+```python
+PLUGINS = [
+    'netbox_acls'
+]
 
-```bash
-code --install-extension ms-vscode-remote.remote-containers
-```
-
-Alternatively you can also start VSCode manually in the directory that as created. However this may cause errors due to permission issues. If such an error occures, you must manually delete the container and the volume. You have been warned!
-```
-cd <your plugin name>
-code .
+PLUGINS_CONFIG = {
+    "netbox_acls": {},
+}
 ```
 
-Have fun developing Netbox plugins!
+## Developing
+
+### VSCode + Docker + Dev Containers
+
+To develop this plugin further one can use the included .devcontainer configuration. This configuration creates a docker container which includes a fully working netbox installation. Currently it should work when using WSL 2. For this to work make sure you have Docker Desktop installed and the WSL 2 integrations activated.
+
+1. In the WSL terminal, enter `code` to run Visual studio code.
+1. Install the devcontainer extension "ms-vscode-remote.remote-containers"
+1. Press Ctrl+Shift+P and use the "Dev Container: Clone Repository in Container Volume" function to clone this repository. This will take a while depending on your computer
+1. If you'd like the netbox instance to be prepopulated run `make Makefile example_initializers` and `make Makefile load_initializers`
+1. Start the netbox instance using `make Makefile all`
+
+Your netbox instance will be served under 0.0.0.0:8000 so it should now be available under localhost:8000.
+
+## Screenshots
+
+Access List - List View
+![Access List - List View](docs/img/access_lists.png)
+
+Access List (Type Extended) - Individual View
+![Access List Type Extended - Individual View](docs/img/access_list_type_extended.png)
+
+Access List (Type Standard) - Individual View
+![Access List Type Standard - Individual View](docs/img/access_list_type_standard.png)
+
+Extended Access List Rules - List View
+![Extended Access List Rules - List View](docs/img/acl_extended_rules.png)
+
+Standard Access List Rules - List View
+![Standard Access List Rules - List View](docs/img/acl_standard_rules.png)
+
+Access List Interface Assignments- List View
+![Access List Interface Assignments- List View](docs/img/acl_interface_assignments.png)
+
+Host (device, virtual_chassis, virtual_machine) Access Lists - New Card
+![Host Access Lists - New Card](docs/img/acl_host_view.png)
+
+Host Interface (vminterface interface) Access Lists - New Card
+![Host Interface Access Lists - New Card](docs/img/access_list_type_standard.png)

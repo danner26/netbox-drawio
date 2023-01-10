@@ -8,8 +8,8 @@
 		"docker-compose.override.yml"
 	],
 	"service": "netbox",
-	//"workspaceMount": "source=${localWorkspaceFolder},target=/opt/netbox/netbox/{{plugin_name}},type=bind,consistency=cached",
-	"workspaceFolder": "/opt/netbox/netbox/{{plugin_name}}",
+	//"workspaceMount": "source=${localWorkspaceFolder},target=/opt/netbox/netbox/netbox-acls,type=bind,consistency=cached",
+	"workspaceFolder": "/opt/netbox/netbox/netbox-acls",
 
 	"overrideCommand":false,
 
@@ -90,6 +90,7 @@
 				"mutantdino.resourcemonitor",
 				"paulomenezes.duplicated-code",
 				"searKing.preview-vscode",
+				"sourcery.sourcery"
 			]
 		}
 	},
